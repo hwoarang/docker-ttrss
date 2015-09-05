@@ -12,6 +12,11 @@ if [[ ! -e /etc/ssl/certs/ttrss.cert || -e /etc/ssl/key/ttrss.key ]]; then
 			-batch || { echo "Failed to create the certificate"; exit 1; }
 fi
 
+echo "Configuring the DB"
 php /configure-db.php
 
+echo "Starting php7.0-fpm"
+/etc/init.d/php7.0-fpm start
+
+echo "Staring supervisord"
 supervisord -c /etc/supervisor/conf.d/supervisord.conf

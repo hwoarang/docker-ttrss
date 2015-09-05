@@ -1,14 +1,11 @@
-FROM ubuntu
+FROM ubuntu:xenial
 # Based on Christian Lück <christian@lueck.tv>
 # from https://github.com/clue/docker-ttrss
 MAINTAINER Markos Chandras <hwoarang@gentoo.org>
 
 RUN DEBIAN_FRONTEND=noninteractive apt-get update && apt-get install -y \
-  nginx git supervisor php5-fpm php5-cli php5-curl php5-gd php5-json \
-  php5-pgsql php5-mysql php5-mcrypt openssl && apt-get clean
-
-# enable the mcrypt module
-RUN php5enmod mcrypt
+  nginx git supervisor php7.0-fpm php7.0-cli php7.0-curl php7.0-gd php7.0-json \
+  php7.0-pgsql php7.0-mysql php7.0-mcrypt php7.0-mbstring php7.0-xml openssl && apt-get clean
 
 # add ttrss as the only nginx site
 ADD ttrss.nginx.conf /etc/nginx/sites-available/ttrss
@@ -16,7 +13,7 @@ RUN ln -s /etc/nginx/sites-available/ttrss /etc/nginx/sites-enabled/ttrss
 RUN rm /etc/nginx/sites-enabled/default
 
 # install ttrss and patch configuration
-RUN git clone https://github.com/gothfox/Tiny-Tiny-RSS.git /var/www/tt-rss
+RUN git clone https://git.tt-rss.org/git/tt-rss.git /var/www/tt-rss/
 WORKDIR /var/www/tt-rss/
 RUN cp config.php-dist config.php
 RUN sed -i -e "/'SELF_URL_PATH'/s/ '.*'/ 'https:\/\/localhost\/'/" config.php
