@@ -16,11 +16,13 @@ RUN rm /etc/nginx/sites-enabled/default
 RUN git clone https://git.tt-rss.org/git/tt-rss.git /var/www/tt-rss/
 WORKDIR /var/www/tt-rss/
 RUN cp config.php-dist config.php
-RUN sed -i -e "/'SELF_URL_PATH'/s/ '.*'/ 'https:\/\/localhost\/'/" config.php
 RUN chown www-data:www-data -R /var/www
 
 # expose a HTTPS port
 EXPOSE 443
+
+# complete path to ttrss
+ENV SELF_URL_PATH http://localhost
 
 # expose default database credentials via ENV in order to ease overwriting
 ENV DB_NAME ttrss
