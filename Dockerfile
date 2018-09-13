@@ -13,7 +13,7 @@ RUN ln -s /etc/nginx/sites-available/ttrss /etc/nginx/sites-enabled/ttrss
 RUN rm /etc/nginx/sites-enabled/default
 
 # install ttrss and patch configuration
-RUN git clone https://git.tt-rss.org/git/tt-rss.git /var/www/tt-rss/
+RUN git clone --depth 1 https://git.tt-rss.org/git/tt-rss.git /var/www/tt-rss/
 WORKDIR /var/www/tt-rss/
 RUN cp config.php-dist config.php
 RUN chown www-data:www-data -R /var/www
