@@ -5,7 +5,7 @@ MAINTAINER Markos Chandras <hwoarang@gentoo.org>
 
 RUN DEBIAN_FRONTEND=noninteractive apt-get update && apt-get install -y \
   nginx git supervisor php7.0-fpm php7.0-cli php7.0-curl php7.0-gd php7.0-json \
-  php7.0-pgsql php7.0-mysql php7.0-mcrypt php7.0-mbstring php7.0-xml openssl && apt-get clean
+  php7.0-pgsql php7.0-mysql php7.0-mcrypt php7.0-mbstring php7.0-xml php7.0-intl openssl && apt-get clean
 
 # add ttrss as the only nginx site
 ADD ttrss.nginx.conf /etc/nginx/sites-available/ttrss
